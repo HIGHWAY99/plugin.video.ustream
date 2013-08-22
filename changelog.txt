@@ -1,3 +1,6 @@
+Version 0.0.4
+added try/acceptions to fix errors that OFTEN accurred with addon_log().
+
 Version 0.0.3
 fix category caching
 

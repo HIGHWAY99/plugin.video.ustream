@@ -219,9 +219,11 @@ def resolve_url(stream_id):
                             cdn_path = amf_data['streamVersions'][i]['streamVersionCdn'][cdn]['cdnStreamName']
                             streams.append((cdn_url, cdn_path))
                     else:
-                        addon_log('No streamVersionCdn key!')
+                        try: addon_log('No streamVersionCdn key!')
+                        except: t=''
             else:
-                addon_log('No streamVersions key!')
+                try: addon_log('No streamVersions key!')
+                except: t=''
             if 'fmsUrl' in amf_data.keys():
                 fms_url = amf_data['fmsUrl']
                 # there may be issues with this path ???
@@ -238,11 +240,14 @@ def resolve_url(stream_id):
             if 'liveHttpUrl' in amf_data.keys():
                 streams.append((amf_data['liveHttpUrl'], None))
         else:
-            addon_log('status key == offline')
+            try: addon_log('status key == offline')
+            except: t=''
             xbmc.executebuiltin("XBMC.Notification(Ustream,Channel is Offline,5000,"+icon+")")
             
-        addon_log('streams %s' %str(len(streams)))
-        addon_log(str(streams))
+        try: 
+        	addon_log('streams %s' %str(len(streams)))
+        	addon_log(str(streams))
+        except: t=''
         play_url = False
         if len(streams) > 0:
             swf = ' swfUrl='+getSwf()
@@ -288,7 +293,8 @@ def resolve_url(stream_id):
                 
         if play_url:
             print play_url
-            addon_log('Play URL: '+play_url)
+            try: addon_log('Play URL: '+play_url)
+            except: t=''
             succeeded = True
         else:
             succeeded = False
